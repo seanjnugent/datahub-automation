@@ -1,0 +1,49 @@
+import pandas as pd
+from faker import Faker
+import random
+
+# Initialize Faker
+fake = Faker()
+
+# Read indictments from CSV
+indictments = pd.read_csv('CPS_Offences.csv')['offence'].tolist()
+
+# Define a function to escape single quotes in SQL values
+def escape_sql_value(value):
+    return str(value).replace("'", "''")
+
+# Define a function to generate fake data
+def generate_prisoner_data(num_records):
+    prisoners = []
+    security_levels = [1, 2, 3]
+
+    for _ in range(num_records):
+        prisoner = {
+            "prisoner_id": fake.unique.random_int(min=1000, max=99999),
+            "first_name": escape_sql_value(fake.first_name()),
+            "last_name": escape_sql_value(fake.last_name()),
+            "date_of_birth": fake.date_of_birth(minimum_age=18, maximum_age=90).strftime('%Y-%m-%d'),
+            "birth_place": escape_sql_value(fake.city()),
+            "occupation": escape_sql_value(fake.job()),
+            "offence": escape_sql_value(random.choice(indictments)),
+            "intake_date": fake.date_between(start_date='-5y', end_date='today').strftime('%Y-%m-%d'),
+            "sentence_end_date": fake.date_between(start_date='today', end_date='+10y').strftime('%Y-%m-%d'),
+            "cell_num": random.randint(1, 50),
+            "security_level_id": random.choice(security_levels)
+        }
+        prisoners.append(prisoner)
+
+    return prisoners
+
+# Generate 2000 fake prisoner records
+fake_prisoners = generate_prisoner_data(2000)
+
+# Display the fake data as PostgreSQL INSERT statements with ON CONFLICT handling
+for prisoner in fake_prisoners:
+    print(
+        f"INSERT INTO prisoner (prisoner_id, first_name, last_name, date_of_birth, birth_place, occupation, offence, intake_date, sentence_end_date, cell_num, security_level_id) "
+        f"VALUES ({prisoner['prisoner_id']}, '{prisoner['first_name']}', '{prisoner['last_name']}', '{prisoner['date_of_birth']}', "
+        f"'{prisoner['birth_place']}', '{prisoner['occupation']}', '{prisoner['offence']}', '{prisoner['intake_date']}', "
+        f"'{prisoner['sentence_end_date']}', {prisoner['cell_num']}, {prisoner['security_level_id']}) "
+        f"ON CONFLICT (prisoner_id) DO NOTHING;"
+    )

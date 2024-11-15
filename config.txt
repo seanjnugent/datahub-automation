@@ -1,0 +1,8 @@
+# PostgreSQL Connection String
+PG_CONNECTION_STRING=
+
+# DataHub Token
+DATAHUB_TOKEN=
+
+# DataHub Server URL
+DATAHUB_SERVER_URL=http://localhost:8080

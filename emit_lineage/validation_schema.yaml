@@ -1,0 +1,35 @@
+type: object
+properties:
+  lineages:
+    type: array
+    items:
+      type: object
+      properties:
+        source:
+          type: object
+          properties:
+            platform:
+              type: string
+            dataset:
+              type: string
+          required: [platform, dataset]
+        target:
+          type: object
+          properties:
+            platform:
+              type: string
+            dataset:
+              type: string
+          required: [platform, dataset]
+        field_mappings:
+          type: array
+          items:
+            type: object
+            properties:
+              source_field:
+                type: string
+              target_field:
+                type: string
+            required: [source_field, target_field]
+      required: [source, target, field_mappings]
+required: [lineages]

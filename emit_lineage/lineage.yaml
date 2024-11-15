@@ -1,0 +1,12 @@
+lineages:
+  - source:
+      platform: "mssql"
+      dataset: "OpenData.dbo.Companies"
+    target:
+      platform: "mssql"
+      dataset: "DWH.dbo.UnifiedCompanyList"
+    field_mappings:
+      - source_field: "CompanyName"
+        target_field: "CompanyName"
+      - source_field: "CompanyNumber"
+        target_field: "CompanyNumber"

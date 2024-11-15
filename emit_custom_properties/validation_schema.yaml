@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "datasets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "urn": { "type": "string" },
+          "customProperties": {
+            "type": "object",
+            "patternProperties": {
+              ".*": { "type": "string" }
+            }
+          }
+        },
+        "required": ["urn", "customProperties"]
+      }
+    }
+  },
+  "required": ["datasets"]
+}

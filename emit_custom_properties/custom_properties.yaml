@@ -1,0 +1,11 @@
+datasets:
+  - urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,nrs_demo.public.babies_first_names_23_full_lists_girls,PROD)"
+    customProperties:
+      PublicationDate: "2024-01-01"
+      TimePeriod: "2025"
+      Supplier: "NRS"
+  - urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,nrs_demo.public.babies_first_names_23_full_lists_boys,PROD)"
+    customProperties:
+      PublicationDate: "2024-01-01"
+      TimePeriod: "2023"
+      Supplier: "NRS"
