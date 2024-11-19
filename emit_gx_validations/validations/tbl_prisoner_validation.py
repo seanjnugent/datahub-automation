@@ -5,6 +5,7 @@ from great_expectations.core.expectation_suite import ExpectationSuite
 def run_validation(context):
     """Run validation for the prisoner table."""
     suite_name = "prisoner_validation_suite"
+    datasource = "prisons_demo"
     NON_NUMERIC_REGEX = r"^\D+$"
 
     # Create or get the existing Expectation Suite
@@ -45,4 +46,5 @@ def run_validation(context):
         "schema_name": "public",
     }
 
-    return batch_request, suite_name
+
+    return batch_request, suite_name, datasource
