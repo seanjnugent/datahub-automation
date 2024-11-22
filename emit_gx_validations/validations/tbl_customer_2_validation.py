@@ -1,4 +1,4 @@
-# validations/tbl_prisoner_validation.py
+# validations/tbl_customer_validation.py
 
 import great_expectations as gx
 from great_expectations.core import ExpectationConfiguration
@@ -7,56 +7,55 @@ from datetime import datetime
 import os
 
 def run_validation(context):
-    """Run validation for the prisoner table."""
     if context is None:
         raise ValueError("Context cannot be None")
 
     # Define suite name
-    suite_name = "prisoner_validation_suite"
+    suite_name = "customer_2_validation_suite"
     print(f"Creating suite: {suite_name}")  # Debug print
     
     try:
         # Create the suite first
         suite = ExpectationSuite(expectation_suite_name=suite_name)
         
-        # Define expectations
-        NON_NUMERIC_REGEX = r"^\D+$"
+        EMAIL_REGEX = r"^[^@]+@[^@]+\.[^@]+$"
 
         expectations = [
             ExpectationConfiguration(
-                expectation_type="expect_column_values_to_be_between",
-                kwargs={
-                    "column": "cell_num",
-                    "min_value": 1,
-                    "max_value": 600
-                }
+                expectation_type="expect_column_values_to_not_be_null",
+                kwargs={"column": "id"}
             ),
             ExpectationConfiguration(
                 expectation_type="expect_column_values_to_be_between",
                 kwargs={
-                    "column": "prisoner_id",
+                    "column": "age",
                     "min_value": 0
                 }
             ),
             ExpectationConfiguration(
                 expectation_type="expect_column_values_to_match_regex",
+                kwargs={"column": "email", "regex": EMAIL_REGEX}
+            ),
+            ExpectationConfiguration(
+                expectation_type="expect_column_values_to_not_be_null",
+                kwargs={"column": "email"}
+            ),
+            ExpectationConfiguration(
+                expectation_type="expect_column_values_to_be_between",
                 kwargs={
-                    "column": "first_name",
-                    "regex": NON_NUMERIC_REGEX
+                    "column": "signup_date",
+                    "min_value": "1900-01-01",
+                    "max_value": datetime.now().strftime("%Y-%m-%d")
                 }
             ),
             ExpectationConfiguration(
                 expectation_type="expect_column_values_to_not_be_null",
-                kwargs={"column": "prisoner_id"}
+                kwargs={"column": "signup_date"}
             ),
             ExpectationConfiguration(
                 expectation_type="expect_column_values_to_not_be_null",
-                kwargs={"column": "first_name"}
+                kwargs={"column": "name"}
             ),
-            ExpectationConfiguration(
-                expectation_type="expect_column_values_to_not_be_null",
-                kwargs={"column": "cell_num"}
-            )
         ]
         
         # Add expectations to suite
@@ -66,21 +65,20 @@ def run_validation(context):
         # Save the suite to the context
         context.add_expectation_suite(expectation_suite=suite)
         context.save_expectation_suite(expectation_suite=suite)
-        print("Suite saved successfully")  # Debug print
         
         # Datasource configuration
         datasource = {
-            "name": "prisons_demo",
-            "database_name": "prisons_demo"  # Specify your database name here
+            "name": "customers_postgres",
+            "database_name": "postgres"  # Specify your database name here
         }
         print(f"Datasource config: {datasource}")  # Debug print
-        
+
         # Batch request configuration
         batch_request = {
             "datasource_name": datasource["name"],
             "data_connector_name": "default",
-            "data_asset_name": "prisoner",
-            "table_name": "prisoner",
+            "data_asset_name": "customer_2",
+            "table_name": "customers_test_data_2",
             "schema_name": "public",
         }
         print(f"Batch request config: {batch_request}")  # Debug print
