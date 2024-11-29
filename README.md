@@ -40,25 +40,6 @@ datahub-automation/
 
 ````
 
-# DataHub Automation Playground  
-
-Welcome to **DataHub Automation**, a collection of scripts and notebooks designed to automate and experiment with metadata management using **DataHub**. This project focuses on governance, lineage, validation, and custom property automation, connecting it all to DataHub's data catalog.  
-
-This isn't just "another metadata project" – it’s a playground for testing and implementing metadata strategies at scale.  
-
----
-
-## 🚀 What This Does  
-
-- **Validation Integration:** Run data quality checks with Great Expectations and publish results to DataHub’s Quality tab.  
-- **Lineage Mapping:** Automatically document dataset relationships without manual effort.  
-- **Governance Audits:** Identify and log gaps (like missing owners) as governance tests.  
-- **Custom Properties:** Add metadata details (like sensitivity or refresh dates) programmatically.  
-
-If DataHub had a testing ground, this would be it.  
-
----
-
 
 ## Getting Started
 Prerequisites
@@ -87,16 +68,16 @@ pip install -r requirements.txt
 
 # How It Works
 - Emit Custom Properties
-- Automate adding custom properties (like publisher levels or sensitivity).
+-- Automate adding custom properties (like publisher levels or sensitivity).
 
 - Emit Governance Tests
-- Run governance checks, such as identifying datasets with missing owners, and publish results to DataHub. This queries the underlying Datahub database to identify governance gaps with simple queries.
+-- Run governance checks, such as identifying datasets with missing owners, and publish results to DataHub. This queries the underlying Datahub database to identify governance gaps with simple queries.
 
 - Run Validations
-- Use Great Expectations to validate datasets and publish the results to DataHub’s Quality tab.
+-- Use Great Expectations to validate datasets and publish the results to DataHub’s Quality tab.
 
 - Emit Lineage
-- Define lineage relationships in lineage.yaml and publish them to DataHub.
+-- Define lineage relationships in lineage.yaml and publish them to DataHub.
 
 ## Known Quirks
 Validation suites need to be properly set up for Great Expectations, naming conventions and URI construction is case sensitive
