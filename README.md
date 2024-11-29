@@ -87,16 +87,16 @@ pip install -r requirements.txt
 
 # How It Works
 - Emit Custom Properties
-Automate adding custom properties (like publisher levels or sensitivity).
+- Automate adding custom properties (like publisher levels or sensitivity).
 
 - Emit Governance Tests
-Run governance checks, such as identifying datasets with missing owners, and publish results to DataHub. This queries the underlying Datahub database to identify governance gaps with simple queries.
+- Run governance checks, such as identifying datasets with missing owners, and publish results to DataHub. This queries the underlying Datahub database to identify governance gaps with simple queries.
 
 - Run Validations
-Use Great Expectations to validate datasets and publish the results to DataHub’s Quality tab.
+- Use Great Expectations to validate datasets and publish the results to DataHub’s Quality tab.
 
 - Emit Lineage
-Define lineage relationships in lineage.yaml and publish them to DataHub.
+- Define lineage relationships in lineage.yaml and publish them to DataHub.
 
 ## Known Quirks
 Validation suites need to be properly set up for Great Expectations, naming conventions and URI construction is case sensitive
