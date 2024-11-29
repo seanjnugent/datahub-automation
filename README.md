@@ -15,6 +15,8 @@ This repo is a collection of scripts and notebooks designed to automate metadata
 
 ## Project Structure  
 
+```plaintext
+
 datahub-automation/
 ├── .env                    # Environment variables (e.g., tokens, database credentials)
 ├── config.txt              # Configuration reference for setting up .env
@@ -35,6 +37,27 @@ datahub-automation/
 │   ├── lineage.yaml
 │   └── validation_schema.yaml # Template for validating lineage.yaml
 └── README.md
+
+````
+
+# DataHub Automation Playground  
+
+Welcome to **DataHub Automation**, a collection of scripts and notebooks designed to automate and experiment with metadata management using **DataHub**. This project focuses on governance, lineage, validation, and custom property automation, connecting it all to DataHub's data catalog.  
+
+This isn't just "another metadata project" – it’s a playground for testing and implementing metadata strategies at scale.  
+
+---
+
+## 🚀 What This Does  
+
+- **Validation Integration:** Run data quality checks with Great Expectations and publish results to DataHub’s Quality tab.  
+- **Lineage Mapping:** Automatically document dataset relationships without manual effort.  
+- **Governance Audits:** Identify and log gaps (like missing owners) as governance tests.  
+- **Custom Properties:** Add metadata details (like sensitivity or refresh dates) programmatically.  
+
+If DataHub had a testing ground, this would be it.  
+
+---
 
 
 ## Getting Started
