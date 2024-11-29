@@ -48,11 +48,12 @@ datahub-automation/
 - Environment Variables: Create a .env file to store sensitive data. Use config.txt as a guide.
 
 Example .env file:
+```plaintext
 
 DATAHUB_SERVER_URL=<your_datahub_url>
 DATAHUB_TOKEN=<your_datahub_token>
 PG_CONNECTION_STRING=<your_database_connection_string>
-
+```
 # Installation
 Clone the repo:
 
@@ -82,7 +83,6 @@ pip install -r requirements.txt
 
 ## Known Quirks
 Validation suites need to be properly set up for Great Expectations, naming conventions and URI construction is case sensitive
-Naming conventions matter for lineage scripts.
 
 ## Future Plans
 Implement CI/CD for metadata validation
