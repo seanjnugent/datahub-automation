@@ -42,10 +42,11 @@ datahub-automation/
 
 
 ## Getting Started
-Prerequisites
-DataHub: Ensure DataHub is up and running (Docker setup recommended).
-Database: This project currently supports PostgreSQL, but can be adapted for other databases.
-Environment Variables: Create a .env file to store sensitive data. Use config.txt as a guide.
+# Prerequisites
+- DataHub: Ensure DataHub is up and running (Docker setup recommended).
+- Database: This project currently supports PostgreSQL, but can be adapted for other databases.
+- Environment Variables: Create a .env file to store sensitive data. Use config.txt as a guide.
+
 Example .env file:
 
 DATAHUB_SERVER_URL=<your_datahub_url>
