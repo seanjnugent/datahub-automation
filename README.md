@@ -78,21 +78,24 @@ git clone https://github.com/seanjnugent/datahub-automation.git
 cd datahub-automation
 Set up a virtual environment and install dependencies:
 
+```plaintext
+
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+````
 
 # How It Works
-Emit Custom Properties
+- Emit Custom Properties
 Automate adding custom properties (like publisher levels or sensitivity).
 
-Emit Governance Tests
+- Emit Governance Tests
 Run governance checks, such as identifying datasets with missing owners, and publish results to DataHub. This queries the underlying Datahub database to identify governance gaps with simple queries.
 
-Run Validations
+- Run Validations
 Use Great Expectations to validate datasets and publish the results to DataHub’s Quality tab.
 
-Emit Lineage
+- Emit Lineage
 Define lineage relationships in lineage.yaml and publish them to DataHub.
 
 ## Known Quirks
