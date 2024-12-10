@@ -1,0 +1,6 @@
+acryl-datahub==0.14.1.11
+acryl-datahub-gx-plugin==0.14.1.11
+great-expectations==1.2.3
+python-dotenv==1.0.1
+SQLAlchemy==1.4.54
+psycopg2-binary==2.9.10

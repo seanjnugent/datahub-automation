@@ -21,6 +21,7 @@ def run_validation(context):
         
         # Define expectations
         NON_NUMERIC_REGEX = r"^\D+$"
+        PERSONAL_IDENTIFIER_REGEX = r"^[A-Z]{2}\d{6}$"
 
         expectations = [
             ExpectationConfiguration(
@@ -56,6 +57,21 @@ def run_validation(context):
             ExpectationConfiguration(
                 expectation_type="expect_column_values_to_not_be_null",
                 kwargs={"column": "cell_num"}
+            ),
+                # Ensure persona_identifier values are unique
+            ExpectationConfiguration(
+                expectation_type="expect_column_values_to_be_unique",
+                kwargs={
+                    "column": "persona_identifier"
+                }
+            ),
+            # Ensure persona_identifier values match the regex format
+            ExpectationConfiguration(
+                expectation_type="expect_column_values_to_match_regex",
+                kwargs={
+                    "column": "persona_identifier",
+                    "regex": PERSONAL_IDENTIFIER_REGEX
+                }
             )
         ]
         
