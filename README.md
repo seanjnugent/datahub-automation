@@ -1,41 +1,93 @@
-# Great Expectations Datahub Integration
+# DataHub Automation Playground  
 
-This project demonstrates how to run data validations using Great Expectations on datasets stored in your database. It integrates with DataHub to send validation results and display under the Quality tab within a dataset. The project includes two simple validations.
+This repo is a collection of scripts and notebooks designed to automate metadata management for Datahub, the data catalogue. This project focuses on governance, lineage, validation and custom property automation.
 
-## Project Structure
-The project is structured as follows:
+---
 
-- validations/
-    - __init__.py
-    - tbl_[table]_validation.py
-- validator_emit.ipynb
+## What This Does  
 
-## Key Files
-validations/: Contains Python modules for validation logic, one file per table with multiple validations per file.
-__init__.py: Allows for importing the modules and validation functions as a Python package.
+- Validation with Great Expectations - Run data quality checks with Great Expectations and publish results to DataHub’s Quality tab. 
+- Lineage Mapping - Emit column level lineage to datahub by defining a YAML file with column lineage.
+- Governance Audits - Custom emitter to run governance checks (such as owners, completeness) and publish to Datahub.
+- Custom Properties - Programatically add custom properties or custom metadatafields.
 
-.env: This file should store your environment variables, including the DataHub server URL and token.
-config.txt: A basic configuration file that helps users set up their .env file.
-validator_emit.ipynb: Jupyter notebook for running validations and emitting results to DataHub.
+---
 
-## Prerequisites
-1. Set Up DataHub
-Before running validations, you need to have DataHub set up and running to capture the validation results.
+## Project Structure  
 
-2. Database
-This project is using a Postgres DB
+```plaintext
 
-3. Environment Variables
-Create a .env file based on the example config.txt. This file will store sensitive information like your DataHub server URL and token. The .env file should look like this:
+datahub-automation/
+├── .env                    # Environment variables (e.g., tokens, database credentials)
+├── config.txt              # Configuration reference for setting up .env
+├── emit_custom_properties/ # Scripts for setting custom metadata
+│   ├── custom_properties.yaml
+│   ├── emit_custom_properties.ipynb
+│   └── validation_schema.yaml # Template for validating custom_properties.yaml
+├── emit_governance/        # Governance checks (e.g., missing owners)
+│   └── governance_suite.ipynb
+├── emit_gx_validations/    # Great Expectations validations
+│   ├── validator_emit.ipynb
+│   └── validations/ # Folder with quality checks against a given table
+│       ├── __init__.py
+│       ├── tbl_customer_1_validation.py
+│       └── tbl_prisoner_validation.py
+├── emit_lineage/           # Lineage automation scripts
+│   ├── emit_custom_properties.ipynb
+│   ├── lineage.yaml
+│   └── validation_schema.yaml # Template for validating lineage.yaml
+└── README.md
 
-DATAHUB_SERVER_URL=<your_datahub_server_url>
+````
+
+
+## Getting Started
+# Prerequisites
+- DataHub: Ensure DataHub is up and running (Docker setup recommended).
+- Database: This project currently supports PostgreSQL, but can be adapted for other databases.
+- Environment Variables: Create a .env file to store sensitive data. Use config.txt as a guide.
+
+Example .env file:
+```plaintext
+
+DATAHUB_SERVER_URL=<your_datahub_url>
 DATAHUB_TOKEN=<your_datahub_token>
-PG_CONNECTION_STRING=<your_database_connection>
+PG_CONNECTION_STRING=<your_database_connection_string>
+```
+# Installation
+Clone the repo:
 
-## Installation
-Clone this repository:
-Create and activate a virtual environment:
-Install the required package
+git clone https://github.com/seanjnugent/datahub-automation.git
+cd datahub-automation
+Set up a virtual environment and install dependencies:
 
-Custom Actions
-This project uses DataHubValidationAction for sending results to DataHub:
+```plaintext
+
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+````
+
+# How It Works
+- Emit Custom Properties
+-- Automate adding custom properties (like publisher levels or sensitivity).
+
+- Emit Governance Tests
+-- Run governance checks, such as identifying datasets with missing owners, and publish results to DataHub. This queries the underlying Datahub database to identify governance gaps with simple queries.
+
+- Run Validations
+-- Use Great Expectations to validate datasets and publish the results to DataHub’s Quality tab.
+
+- Emit Lineage
+-- Define lineage relationships in lineage.yaml and publish them to DataHub.
+
+## Known Quirks
+Validation suites need to be properly set up for Great Expectations, naming conventions and URI construction is case sensitive
+
+## Future Plans
+Implement CI/CD for metadata validation
+Scheduling
+Build a dashboard to monitor metadata completeness over time.
+
+## Why I Built This
+Datahub is a good tool but its native functionality is quite limited. Script and interacting with the CLI makes the tool more useful, adding quality tests and column level lineage which are not available via the UI. I didn't find simple implementations of these scripts so decided to create my own suite based on the latest version of Datahub.
